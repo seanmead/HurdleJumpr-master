@@ -1,0 +1,352 @@
+\documentclass[a4wide]{article}
+\usepackage{a4wide}
+\usepackage{appendix}
+\newcommand{\comment}[1]{{\tt #1}}
+
+\title{HurdleJumpr:\\ System Requirements Specification}
+
+\author{Hesham H. Salman \and Jonathon Kissinger \and Sean Mead \and Troy Johnson}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+\subsection{Overall Description}
+
+HurdleJumpr tracks user inputs and behavioral patterns, and uses this data to
+determine whether or not the user is likely to have ADHD. This is determined by
+comparing the user response times and input patterns to those of people with and
+without ADHD. If the application can determine with a high level of confidence
+that the user is likely to have ADHD, a suggestion is made to the user to visit
+a medical professional. \newline \newline
+This application is to be used by a number of people with and without ADHD so
+that we may test its detection algorithms.
+
+\subsection{Definitions}
+
+Acronyms and abbreviations as applicable
+
+\subsection{References}
+
+References to other documents
+
+\subsection{Overview of Developer's Responsibilities}
+
+
+Troy Johnson:
+Jonathon Kissinger:
+Sean Mead:
+Hesham Salman:
+
+Responsibilities in terms of development, installation, training, maintenance
+etc.
+
+Eg. The developer is responsible for development, installation,
+loading of all the data relating to books in the library,
+and training of employees.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{System Overview}
+
+\subsection{Survey}
+
+The user survey is loaded at the applications's initial screen.
+The user is responsible for filling out the questions to the best of their ability.
+The survey will be submitted and uploaded to the server upon completion. 
+
+\subsection{Server}
+
+The server is responsible for accepting user submission information and introducing it to the database.
+Communication between the server and clients will be encrypted and as secure as possible to protect any sensitive information.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{General Description}
+
+\subsection{Product Perspective}
+
+This product will interface with a server, transferring anonymized local user
+data to a remote server for data processing.
+
+
+\subsection{Product Functions Overview}
+
+\begin{enumerate}
+\item Game: Hurdle Jumper
+\item User input tracking and data collection
+\item Data processing to determine whether or not the user has ADHD
+\item Result generation
+\item Comparative analysis of user's data with average user data
+\end{enumerate}
+
+\subsection{User Characteristics}
+
+The users of this application are to be people with and without ADHD. A user
+survey is conducted at the start of this application such that the results can
+be calibrated based on the user's age and gender. Of users with ADHD, there is a
+distinction made between users that are medicated and unmedicated.
+
+\subsection{General Constraints}
+
+This project is to be completed, including coding, testing, and loading of the
+database by Nov 30, 2014.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Information Description}
+
+\subsection{Entities and Relationships}
+
+Give a list of entities/relationships that are needed,
+and ER diagrams.
+
+\subsection{Data Dictionary}
+
+Give the relations, their attributes, and for each attribute the
+type and a description of the attribute.  Here's an example.
+
+\begin{enumerate}
+\item customers
+
+\centerline{
+\begin{tabular}{|c|c|c|p{3in}|}
+\hline
+account\_no& varchar(8)& primary key& account number\\
+\hline
+name& varchar(20)& not null& Name\\
+\hline
+profession& varchar(10)& not null& Profession\\
+\hline
+address& varchar(40)& not null& Address\\
+\hline
+email& varchar(40)& -& Email Address \\
+\hline
+\end{tabular}
+}
+
+\end{enumerate}
+
+\subsection{Data Flow}
+
+Give data flow between major units of your software.
+E.g.,
+Most useful in case a task has multiple steps requiring interaction
+with other software or other humans.
+E.g. To purchase a book, user can enter request, department head can
+approve, then librarian approves, then order is made.
+
+\section{Functional Requirements}
+
+\begin{enumerate}
+\item Introductory User Survey
+\item Home Screen
+\item Volume Control
+\item Data Collection
+\item Data Encryption
+\item Game Functionality
+\item Data transfer and processing
+\item Result display
+\end{enumerate}
+
+
+\subsection{Introductory User Survey}
+The introductory user survey is displayed on first load of the program. It must
+be completed before the home screen is allowed to display. The introductory user
+survey establishes information to better understand the user's state: whether or
+not they have been diagnosed with ADHD (and if they have, whether or not they
+are currently taking medicine), their age, and their gender. This information is
+required so that the calculations regarding the likelihood of ADHD are accurate.
+In the case that the user does not complete the survey, their incomplete
+survey's state is saved, and will be loaded upon re-launch of the program.
+
+\subsection{Home Screen}
+The home screen must display two navigation options to the user: the option to
+begin the game and the option to enter the settings pane. In the case that the
+user does not select an option, the program will remain in the home-screen
+state.
+
+\subsection{Volume Control}
+Allows the user to toggle audio volume.
+
+\subsection{Data Collection}
+Collects the following usage metrics from the user:
+\begin{enumerate}
+\item Introductory User Survey
+\item Reaction Time
+\item Amount Played
+\item Number of encounters
+\item Average Session Length
+\end{enumerate}
+
+Furthermore, error logs are collected in the event of an error. All data is
+logged in a local database and tagged with a unique identifier.
+
+\subsection{Data Encryption}
+The data is encrypted with an RSA encryption scheme because survey results and
+collected data may be sensitive.
+
+\subsection{Game Functionality}
+The game involves a single character sprite running rightwards, avoiding
+obstacles which appear at pseudo-random intervals.
+
+\subsection{Data Transfer and Processing}
+The data is transferred to a remote server where it is processed. The processing
+involves statistical normalization of the information, as well as comparison
+with our model. Once the data is transferred to the server, the model determines
+whether or not the user's individual data follows the same correlative trends as
+those users with ADHD.
+
+\subsection{Result Display}
+Two results must be displayed to the user:
+\begin{enumerate}
+\item The Game Score
+\item Their likelihood of having ADHD
+\end{enumerate}
+The game score is calculated as the result of the game, whereas their likelihood
+of having ADHD must be processed remotely and transferred back to the user.
+
+\section{Non-functional Requirements}
+\begin{itemize}
+\item Easily understandable -- the software should be easy to use and understand
+\item Entertaining -- the game must be entertaining to the users so as to
+encourage usage
+\item Enhanceable -- the system must allow for enhancement without major code
+rewrites or architectural changes; coupling must be limited
+\item Reusable -- the components of the system should be reusable
+\item Stable -- the system msut be stable on all target versions of Android
+\item Good performance -- the system should provide good perfomance on all
+targeted platforms
+\item Responsive -- the system should respond to user actions immediately.
+\item Clean interface -- the interface should be simple and clean so as to not
+confuse users.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{External Interface Requirements}
+
+\subsection{User Interfaces}
+
+This used to be important, and required a user manual giving commands
+screen formats, outputs, error messages, etc.
+In your case just say the web is used as interface.
+
+\subsection{Hardware Interfaces}
+
+Interfaces with existing as well as new or special purpose hardware.
+E.g. smart card reader for authentication.
+In your case say no special hardware.
+
+\subsection{Software Interfaces}
+
+List software platforms that are to be supported.
+
+List interfaces with other software packages etc.
+Make sure to list all software that you interface with.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Performance Requirements}
+
+Capacity requirements (estimates of no of users, database size, ..)
+Response time requirements (for different tasks)
+and throughput (estimates of avg/peak number of transactions per minute, etc).
+Don't worry about exact numbers but give ballpark figures.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Exception Handling}
+
+\subsection{Form}
+
+In general user forms are prone to exceptions.
+Handling these exceptions is crucial to valid form submission.
+Each field will be appropriately handled and validated before submission.
+
+\subsection{Network}
+
+Network communication may fail from either the client or server end.
+In these cases proper exception handling is important.
+The code must be versatile enough to put up with null or delayed responses.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Design Constraints}
+
+\subsection{Standards Compliance}
+
+Software development standards asn well as organizational standards
+(eg reports, auditing).
+
+In your case, say not applicable.
+
+\subsection{Hardware Limitations}
+
+Requirements on machines, operating systems, storage capacities etc.
+This used to be very important, but these days this matters only
+for very fast/highthroughput systems, not so much for the things you
+are doing.
+
+Fault tolerance and reliability requirements should also be listed here.
+
+In your case this is not considered
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Validation Criteria}
+
+\subsection{Documentation}
+The software for both the client side mobile application must be fully documented and clearly readable. The documentation should adequately describe what is occurring within the code in a clear and concise manner. The code should also be as loosely coupled as possible to allow desirable changes to be easily made to the code and to also reduce the possibility of errors cropping up when a developer wants to make changes to the code base. This is important especially on the server side as the algorithm for determining the possibility of ADHD may be constantly changing and refined over time as more and more data becomes available and new patterns in the data are picked up on that may help diagnose a user with ADHD.
+\subsection{Testing}
+The mobile application must be able to be run on a variety of Android operating systems. Ideally, the application will run on all Android versions greater than or equal to Android 4.0 (Android Jelly Bean). The application should pass all tests we develop using the monkeyrunner application to test the application for possible errors on the mobile application side along with server passing all stress tests performed on it. If these tests are passed and the user can successfully upload their data and get results back (if enough data is available), then the mobile application will pass its acceptance criteria as a prototype for an application with the potential for helping to diagnose users with ADHD.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Other Requirements}
+\newpage
+\appendix
+\appendixpage
+
+\section{Information Gathering}
+
+\begin{description}
+\item[Interviewee] Dr. Tony Morelli
+\item[Position] Professor of Computer Science
+\item[Affiliation] Central Michigan University
+\item[Interviewer] Jonathan Kissinger
+\item[Date] Thursday, 9/18/2014
+\item[Start Time] 2:00pm
+\item[End Time] 2:30pm
+\end{description}
+\textbf{Q. We’re considering using Unity for our game engine, but we would need
+access to Unity Pro to run native android code.  Does the school grant access to
+that software and is it appropriate for our needs?}\\
+A. Yes, the school has Unity Pro on the lab computers in PE 400.  It may also be
+available on the Virtual Machines accessible remotely.  However, Unity may be a
+bit more than what you need.  You’re aware of the project I recently did with
+interface testing and Unity and it worked well for that but it’s really up to
+you.\\\\
+\textbf{Q. In your research you used ISO standards, are there any applicable to
+reaction time and our project?}\\
+More than likely, check out ISO 9241 it contains most standards like that.  It’s
+primarily aimed at interfaces but there are lots of other standards contained
+within it.\\\\
+\textbf{Q. We need to file an IRB application to have anonymous surveys and data
+collection right?}\\
+Yes, the best thing to do is give them a call.  They’ll tell you which form to
+fill out and send in.  I had to fill out 3 different forms last time because I
+kept filling out the wrong one.  You’ll need a professor to sponsor the project,
+which I will be glad to do if Dr. Lee doesn’t wish to.\\\\
+\textbf{Q. Is it possible to save the interviewing step and submit a prototype
+for publication?}\\
+Yes, that would be called a work in progress and it's somethig that's not
+uncommon.  They get accepted for publication just like regular papers.
+
+\end{document}
